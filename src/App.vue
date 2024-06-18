@@ -31,12 +31,12 @@ export default {
 
     setTimeout(() => {
       const authorMeta = computed(() => ({
-        name: "og:title",
+        property: "og:title",
         content: title.value // Use computed to reactively update meta content
       }));
 
       const authorMeta1 = computed(() => ({
-        name: "og:description",
+        property: "og:description",
         content: description.value // Use computed to reactively update meta content
       }));
 
