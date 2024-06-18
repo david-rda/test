@@ -1,26 +1,58 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>hello</h1>
+  </div>
 </template>
-
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import { ref, onMounted, computed } from 'vue';
+import axios from 'axios';
+import { useHead } from '@vueuse/head';
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
+  setup() {
+    // Define a reactive property for name
+    const title = ref("df");
+    const description = ref("df");
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+    // Fetch data and update name on component mount
+    onMounted(() => {
+      axios.get("https://jsonplaceholder.typicode.com/posts/1")
+        .then((res) => {
+          title.value = res.data.title;
+          description.value = res.data.body;
+        })
+        .catch((error) => {
+          console.error('Error fetching data:', error);
+        });
+    });
+
+    setTimeout(() => {
+      const authorMeta = computed(() => ({
+        name: "og:title",
+        content: title.value // Use computed to reactively update meta content
+      }));
+
+      const authorMeta1 = computed(() => ({
+        name: "og:description",
+        content: description.value // Use computed to reactively update meta content
+      }));
+
+    // Set up metadata using useHead
+    useHead({
+      title: 'My awesome site',
+      meta: [
+        authorMeta.value, // Use computed property here
+        authorMeta1.value // Use computed property here
+      ]
+    });
+    }, 500)
+
+    return {
+      title, // Expose name to the template if needed
+      description // Expose name to the template if needed
+    };
+  },
+};
+
+</script>
