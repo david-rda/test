@@ -40,15 +40,15 @@ export default {
         content: description.value // Use computed to reactively update meta content
       }));
 
-    // Set up metadata using useHead
-    useHead({
-      title: 'My awesome site',
-      meta: [
-        authorMeta.value, // Use computed property here
-        authorMeta1.value // Use computed property here
-      ]
-    });
-    }, 500)
+      // Set up metadata using useHead
+      useHead({
+        title: 'My awesome site',
+        meta: [
+          authorMeta.value, // Use computed property here
+          authorMeta1.value // Use computed property here
+        ]
+      });
+    }, 100)
 
     return {
       title, // Expose name to the template if needed
