@@ -29,7 +29,6 @@ export default {
         });
     });
 
-    setTimeout(() => {
       const authorMeta = computed(() => ({
         property: "og:title",
         content: title.value // Use computed to reactively update meta content
@@ -48,7 +47,6 @@ export default {
           authorMeta1.value // Use computed property here
         ]
       });
-    }, 100)
 
     return {
       title, // Expose name to the template if needed
