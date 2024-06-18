@@ -5,7 +5,7 @@
 </template>
 <script>
 
-import { ref, onMounted, computed } from 'vue';
+import { ref, onBeforeMount, computed } from 'vue';
 import axios from 'axios';
 import { useHead } from '@vueuse/head';
 
@@ -16,7 +16,7 @@ export default {
     const description = ref("df");
 
     // Fetch data and update name on component mount
-    onMounted(() => {
+    onBeforeMount(() => {
       axios.get("https://jsonplaceholder.typicode.com/posts/1")
         .then((res) => {
           title.value = res.data.title;
